@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using RabbitMQ.Client;
+using System.Configuration;
 using UdemyRabbitMQ.WebApp.Models;
+using UdemyRabbitMQ.WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +14,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseInMemoryDatabase(databaseName: "productDb");
 });
+
+IConfigurationRoot configuration = new ConfigurationBuilder()
+           .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+           .AddJsonFile("appsettings.json")
+           .Build();
+
+builder.Services.AddSingleton(sp => new ConnectionFactory()
+{
+    Uri = new Uri(configuration.GetConnectionString("ConnectionStrings"))
+});
+
+builder.Services.AddSingleton<RabitMQClientService>();
 
 var app = builder.Build();
 
