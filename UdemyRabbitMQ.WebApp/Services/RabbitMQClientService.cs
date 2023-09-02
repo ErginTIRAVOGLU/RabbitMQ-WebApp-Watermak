@@ -2,7 +2,7 @@
 
 namespace UdemyRabbitMQ.WebApp.Services
 {
-    public class RabitMQClientService:IDisposable
+    public class RabbitMQClientService:IDisposable
     {
         private readonly ConnectionFactory _connectionFactory;
         private IConnection _connection;
@@ -11,9 +11,9 @@ namespace UdemyRabbitMQ.WebApp.Services
         public static string RoutingWatermark = "watermark-route-image";
         public static string QueueName = "queue-watermark-image";
 
-        private readonly ILogger<RabitMQClientService> _logger;
+        private readonly ILogger<RabbitMQClientService> _logger;
 
-        public RabitMQClientService(ConnectionFactory connectionFactory, ILogger<RabitMQClientService> logger)
+        public RabbitMQClientService(ConnectionFactory connectionFactory, ILogger<RabbitMQClientService> logger)
         {
             _connectionFactory = connectionFactory;
             _logger = logger;
