@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using System.Configuration;
+using UdemyRabbitMQ.WebApp.BackgroundServices;
 using UdemyRabbitMQ.WebApp.Models;
 using UdemyRabbitMQ.WebApp.Services;
 
@@ -28,6 +29,8 @@ builder.Services.AddSingleton(sp => new ConnectionFactory()
 builder.Services.AddSingleton<RabbitMQClientService>();
 
 builder.Services.AddSingleton<RabbitMQPublisher>();
+
+builder.Services.AddHostedService<ImageWatermarkProcessBackgroundService>();
 
 var app = builder.Build();
 
