@@ -41,6 +41,8 @@ namespace UdemyRabbitMQ.WebApp.BackgroundServices
 
         private Task Consumer_Received(object sender, BasicDeliverEventArgs @event)
         {
+
+            Task.Delay(10000).Wait();
             try
             {
 
@@ -55,7 +57,7 @@ namespace UdemyRabbitMQ.WebApp.BackgroundServices
 
                 using var graphic = Graphics.FromImage(img);
 
-                var font = new Font(FontFamily.GenericMonospace, 12, FontStyle.Bold, GraphicsUnit.Pixel);
+                var font = new Font(FontFamily.GenericMonospace, 32, FontStyle.Bold, GraphicsUnit.Pixel);
 
                 var textSize = graphic.MeasureString(siteName, font);
 
@@ -63,11 +65,11 @@ namespace UdemyRabbitMQ.WebApp.BackgroundServices
 
                 var brush = new SolidBrush(color);
 
-                var position = new Point(img.Width - ((int)textSize.Width - 30), img.Height - ((int)textSize.Height - 30));
+                var position = new Point(img.Width - ((int)textSize.Width + 30), img.Height - ((int)textSize.Height + 30));
 
                 graphic.DrawString(siteName, font, brush, position);
 
-                img.Save("wwwroot/images/watermark" + productImageCreatedEvent.ImageName);
+                img.Save("wwwroot/images/watermark/" + productImageCreatedEvent.ImageName);
 
                 img.Dispose();
                 graphic.Dispose();

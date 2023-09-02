@@ -23,7 +23,8 @@ IConfigurationRoot configuration = new ConfigurationBuilder()
 
 builder.Services.AddSingleton(sp => new ConnectionFactory()
 {
-    Uri = new Uri(configuration.GetConnectionString("RabbbitMQUrl"))
+    Uri = new Uri(configuration.GetConnectionString("RabbbitMQUrl")),
+    DispatchConsumersAsync=true
 });
 
 builder.Services.AddSingleton<RabbitMQClientService>();
